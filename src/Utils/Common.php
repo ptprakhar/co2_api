@@ -121,15 +121,23 @@ class Common
 
 
     /**
-     * Validate the form Data
+     * Format the alert list response
      * 
-     * @method validateData
+     * @method formatAlertList
      * @param $dataArray
      * @return array[]
      * 
      */
-    public function validateData($dataArray){
-        
+    public function formatAlertList($dataArray){
+            $returnArr = [];
+            foreach($dataArray as $data){
+                $measurementsList = explode("," , $data['co2value'] );
+
+                $returnArr[] = ['startDate' => $data['startDate'] , 'endDate' => $data['endDate'] , 'measurements' => $measurementsList ];
+
+            }
+
+            return $returnArr;
 
     }
 }

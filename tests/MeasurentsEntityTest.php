@@ -56,6 +56,14 @@ class MeasurentsEntityTest extends TestCase
         $this->assertEquals ($measurents->getId() , null );
     }
 
+    public function testCanGetSequenceNumber(): void
+    {
+        $measurents = new Measurents();
+        $measurents->setSequenceNumber('11');
+        
+        $this->assertEquals ($measurents->getSequenceNumber() , '11'  );
+    }
+
     
 
 }

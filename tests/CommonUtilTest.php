@@ -187,5 +187,44 @@ class CommonUtilTest extends TestCase
     }
 
 
+    /**
+     * Test format method
+     * 
+     * 
+     * */
+    public function testFormatOfAlertList(): void 
+    {
+            
+       
+            /*$array =  array(
+                "startDate" => "2020-12-13 18:55:47",
+                "endDate" => "2020-12-13 18:55:47",
+                "co2value" => "20000,20000,20000,20000,20000,1,1,1"
+            );*/
+
+            $array[0] = array("startDate" => "2020-12-13 18:55:47", "endDate" => "2020-12-13 18:55:47" ,  "co2value" => "20000,20000,20000,20000,1,1,1");
+
+            $common = new Common();
+            $expectedOutput =  '[{
+                "startDate": "2020-12-13 18:55:47",
+                "endDate": "2020-12-13 18:55:47",
+                "measurements": [
+                    "20000",
+                    "20000",
+                    "20000",
+                    "20000",
+                    "1",
+                    "1",
+                    "1"
+                ]
+            }]';
+
+            $this->assertJsonStringEqualsJsonString ( 
+                $expectedOutput, 
+                json_encode($common->formatAlertList($array))
+            );
+    }
+
+
 
 }

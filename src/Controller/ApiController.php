@@ -133,39 +133,57 @@ class ApiController extends AbstractController
      * 
     */
 
-    public function listing_alerts(){
-        return new JsonResponse(['hearts' => rand(5, 100)]);
+    public function listing_alerts(int $uuid){
+
+        //Get all recent status from DB by uuid
+        $dbData = $this->getDoctrine()
+                ->getRepository(Measurents::class)
+                ->getListOfAlerts($uuid);
+
+         
+                
+
+        if(!empty($dbData)){
+            $commonUtil = new Common();
+            //formatData
+            $measurents = $commonUtil->formatAlertList($dbData);
+            return new JsonResponse($measurents);
+
+        }else{
+            return new JsonResponse(['status' => false , 'msg' => 'No Data Found']);
+        }
+        
     }
 
-/**
- * 
- * @Route("/api/v1/sensors/{uuid}/mesurements", methods={"POST"})
- * @OA\Tag(name="POST")
+    /**
+     * 
+     * @Route("/api/v1/sensors/{uuid}/mesurements", methods={"POST"})
+     * @OA\Tag(name="POST")
 
-* @OA\Post(
-*     summary="Take measurements of sensors by uuid",
-*     @OA\RequestBody(
-*         @OA\MediaType(
-*             mediaType="application/json",
-*             @OA\Schema(
-*                 @OA\Property(
-*                     property="co2",
-*                     type="int"
-*                 ),
-*                 @OA\Property(
-*                     property="time",
-*                     type="string"
-*                 ),
-*                 example={"co2": "1", "time": "2020-12-13T18:55:47+00:00"}
-*             )
-*         )
-*     ),
-*     @OA\Response(
-*         response=200,
-*         description="OK"
-*     )
-* )
-*/
+    * @OA\Post(
+    *     summary="Take measurements of sensors by uuid",
+    *     @OA\RequestBody(
+    *         @OA\MediaType(
+    *             mediaType="application/json",
+    *             @OA\Schema(
+    *                 @OA\Property(
+    *                     property="co2",
+    *                     type="int"
+    *                 ),
+    *                 @OA\Property(
+    *                     property="time",
+    *                     type="string"
+    *                 ),
+    *                 example={"co2": "1", "time": "2020-12-13T18:55:47+00:00"}
+    *             )
+    *         )
+    *     ),
+    *     @OA\Response(
+    *         response=200,
+    *         description="OK"
+    *     )
+    * )
+    */
 
      public function collect_sensor_mesurements(int $uuid, Request $request){
        
@@ -176,13 +194,14 @@ class ApiController extends AbstractController
             $commonUtil = new Common();
 
             //Validation
-            $commonUtil->validateData($data);
+            //$commonUtil->validateData($data);
             
             
             //Get all recent status from DB by uuid
             $recentStatusDb = $this->getDoctrine()
                             ->getRepository(Measurents::class)
                             ->getSensorStatusBydescOrder($uuid);
+
             
             //Based on $recentStatus\'s data get current status for sensor
             $sensorStatus =  $commonUtil->checkStatusFromDb( $data['co2'] , $recentStatusDb , uniqid() );
@@ -192,12 +211,10 @@ class ApiController extends AbstractController
             $measurents = new Measurents();
             //Setting the variables
             $measurents->setUuid($uuid);
-            $measurents->setCo2value( $data['co2'] );
-            
+            $measurents->setCo2value( $data['co2'] );          
             $dateTime = new DateTime( $data['time'] );
             $measurents->setDateTime( $dateTime   );
             $measurents->setSequenceNumber( $sensorStatus['sequenceId']   );
-
             $measurents->setSensorStatus( $sensorStatus['sensorStatus']  );
             $measurents->setSensorCurrentStatus( $sensorStatus['currentStatus']  );
             //$measurents->setAlertSequence( $sensorStatus['previousDataArr']  );

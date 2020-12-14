@@ -99,6 +99,34 @@ class MeasurentsRepository extends ServiceEntityRepository
 
     }
 
+    /**
+     * Get list of alerts
+     * @method getListOfAlerts()
+     * @param $uuid int
+     */
+
+    public function getListOfAlerts(int $uuid): array
+    {
+        $entityManager = $this->getEntityManager();
+        $rsm = new ResultSetMapping();
+        $conn = $entityManager->getConnection();
+        $sql = '
+        SELECT uuid, min(date_time) as startDate, MAX(date_time) as endDate, 
+            GROUP_CONCAT(co2value) as co2value, 
+            sequence_number 
+            FROM measurents 
+            WHERE uuid = :uuid
+            and sensor_current_status = "ALERT"
+            and sequence_number != ""
+            group by sequence_number';
+
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(array('uuid' => $uuid ));
+        return $stmt->fetchAll();
+
+    }
+
 
    
 }
