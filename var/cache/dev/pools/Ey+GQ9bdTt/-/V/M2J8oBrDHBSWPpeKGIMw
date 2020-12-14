@@ -5,6 +5,20 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
         clone (($p = &\Symfony\Component\VarExporter\Internal\Registry::$prototypes)['Symfony\\Component\\Routing\\Annotation\\Route'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Symfony\\Component\\Routing\\Annotation\\Route')),
         clone ($p['OpenApi\\Annotations\\Tag'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('OpenApi\\Annotations\\Tag')),
         clone ($p['OpenApi\\Context'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('OpenApi\\Context')),
+        clone ($p['OpenApi\\Annotations\\Post'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('OpenApi\\Annotations\\Post')),
+        clone ($p['OpenApi\\Annotations\\RequestBody'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('OpenApi\\Annotations\\RequestBody')),
+        clone ($p['OpenApi\\Annotations\\MediaType'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('OpenApi\\Annotations\\MediaType')),
+        clone ($p['OpenApi\\Annotations\\Schema'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('OpenApi\\Annotations\\Schema')),
+        clone ($p['OpenApi\\Annotations\\Property'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('OpenApi\\Annotations\\Property')),
+        clone $p['OpenApi\\Context'],
+        clone $p['OpenApi\\Annotations\\Property'],
+        clone $p['OpenApi\\Context'],
+        clone $p['OpenApi\\Context'],
+        clone $p['OpenApi\\Context'],
+        clone $p['OpenApi\\Context'],
+        clone ($p['OpenApi\\Annotations\\Response'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('OpenApi\\Annotations\\Response')),
+        clone $p['OpenApi\\Context'],
+        clone $p['OpenApi\\Context'],
     ],
     null,
     [
@@ -24,32 +38,144 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
             ],
             '_context' => [
                 1 => $o[2],
+                3 => $o[16],
+                $o[13],
+                $o[12],
+                $o[11],
+                $o[8],
+                9 => $o[10],
+                14 => $o[15],
             ],
             'filename' => [
                 2 => '/var/www/html/symfony-sensors-data/co2-apiv1/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php',
+                8 => '/var/www/html/symfony-sensors-data/co2-apiv1/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php',
+                10 => '/var/www/html/symfony-sensors-data/co2-apiv1/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php',
+                '/var/www/html/symfony-sensors-data/co2-apiv1/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php',
+                '/var/www/html/symfony-sensors-data/co2-apiv1/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php',
+                '/var/www/html/symfony-sensors-data/co2-apiv1/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php',
+                15 => '/var/www/html/symfony-sensors-data/co2-apiv1/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php',
+                '/var/www/html/symfony-sensors-data/co2-apiv1/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php',
             ],
             'line' => [
                 2 => 948,
+                8 => 948,
+                10 => 948,
+                948,
+                948,
+                948,
+                15 => 948,
+                948,
             ],
             'method' => [
                 2 => 'Annotation',
+                8 => 'Annotation',
+                10 => 'Annotation',
+                'Annotation',
+                'Annotation',
+                'Annotation',
+                15 => 'Annotation',
+                'Annotation',
             ],
             'class' => [
                 2 => 'DocParser',
+                8 => 'DocParser',
+                10 => 'DocParser',
+                'DocParser',
+                'DocParser',
+                'DocParser',
+                15 => 'DocParser',
+                'DocParser',
             ],
             'namespace' => [
                 2 => 'Doctrine\\Common\\Annotations',
+                8 => 'Doctrine\\Common\\Annotations',
+                10 => 'Doctrine\\Common\\Annotations',
+                'Doctrine\\Common\\Annotations',
+                'Doctrine\\Common\\Annotations',
+                'Doctrine\\Common\\Annotations',
+                15 => 'Doctrine\\Common\\Annotations',
+                'Doctrine\\Common\\Annotations',
             ],
             'annotations' => [
                 2 => [
                     $o[1],
                 ],
+                8 => [
+                    $o[7],
+                ],
+                10 => [
+                    $o[9],
+                ],
+                [
+                    $o[6],
+                ],
+                [
+                    $o[5],
+                ],
+                [
+                    $o[4],
+                ],
+                15 => [
+                    $o[14],
+                ],
+                [
+                    $o[3],
+                ],
+            ],
+            'summary' => [
+                3 => 'Take measurements of sensors by uuid',
+            ],
+            'requestBody' => [
+                3 => $o[4],
+            ],
+            'responses' => [
+                3 => [
+                    $o[14],
+                ],
+            ],
+            'content' => [
+                4 => [
+                    $o[5],
+                ],
+            ],
+            'mediaType' => [
+                5 => 'application/json',
+            ],
+            'schema' => [
+                5 => $o[6],
+            ],
+            'properties' => [
+                6 => [
+                    $o[7],
+                    $o[9],
+                ],
+            ],
+            'example' => [
+                6 => [
+                    'co2' => '1',
+                    'time' => '2020-12-13T18:55:47+00:00',
+                ],
+            ],
+            'property' => [
+                7 => 'co2',
+                9 => 'time',
+            ],
+            'type' => [
+                7 => 'int',
+                9 => 'string',
+            ],
+            'response' => [
+                14 => 200,
+            ],
+            'description' => [
+                14 => 'OK',
             ],
         ],
     ],
     [
         $o[0],
         $o[1],
+        $o[3],
     ],
     []
 ); }];

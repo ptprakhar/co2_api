@@ -137,18 +137,47 @@ class ApiController extends AbstractController
         return new JsonResponse(['hearts' => rand(5, 100)]);
     }
 
-    /**
-     * 
-     * @Route("/api/v1/sensors/{uuid}/mesurements", methods={"POST"})
-     * @OA\Tag(name="POST")
-     * 
-     */
+/**
+ * 
+ * @Route("/api/v1/sensors/{uuid}/mesurements", methods={"POST"})
+ * @OA\Tag(name="POST")
+
+* @OA\Post(
+*     summary="Take measurements of sensors by uuid",
+*     @OA\RequestBody(
+*         @OA\MediaType(
+*             mediaType="application/json",
+*             @OA\Schema(
+*                 @OA\Property(
+*                     property="co2",
+*                     type="int"
+*                 ),
+*                 @OA\Property(
+*                     property="time",
+*                     type="string"
+*                 ),
+*                 example={"co2": "1", "time": "2020-12-13T18:55:47+00:00"}
+*             )
+*         )
+*     ),
+*     @OA\Response(
+*         response=200,
+*         description="OK"
+*     )
+* )
+*/
 
      public function collect_sensor_mesurements(int $uuid, Request $request){
-        
+       
         if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
-           
             $data = json_decode($request->getContent(), true);
+            if(empty($data)) die("Invalid Request");
+
+            $commonUtil = new Common();
+
+            //Validation
+            $commonUtil->validateData($data);
+            
             
             //Get all recent status from DB by uuid
             $recentStatusDb = $this->getDoctrine()
@@ -156,8 +185,7 @@ class ApiController extends AbstractController
                             ->getSensorStatusBydescOrder($uuid);
             
             //Based on $recentStatus\'s data get current status for sensor
-            $commonUtil = new Common();
-            $sensorStatus =  $commonUtil->checkStatusFromDb( $data['co2'] , $recentStatusDb );
+            $sensorStatus =  $commonUtil->checkStatusFromDb( $data['co2'] , $recentStatusDb , uniqid() );
             
             // Insert Data into databse
             $entityManager = $this->getDoctrine()->getManager();
@@ -168,6 +196,7 @@ class ApiController extends AbstractController
             
             $dateTime = new DateTime( $data['time'] );
             $measurents->setDateTime( $dateTime   );
+            $measurents->setSequenceNumber( $sensorStatus['sequenceId']   );
 
             $measurents->setSensorStatus( $sensorStatus['sensorStatus']  );
             $measurents->setSensorCurrentStatus( $sensorStatus['currentStatus']  );
@@ -184,7 +213,7 @@ class ApiController extends AbstractController
                 ]
             
             );
-       
+
         }
 
         return new JsonResponse(
@@ -196,6 +225,7 @@ class ApiController extends AbstractController
             ]
         
         );
+
 
         
 

@@ -45,6 +45,12 @@ class Measurents
      */
     private $dateTime;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $sequenceNumber;
+
+   
        
     public function getId(): ?int
     {
@@ -111,6 +117,20 @@ class Measurents
 
         return $this;
     }
+
+    public function getSequenceNumber(): ?string
+    {
+        return $this->sequenceNumber;
+    }
+
+    public function setSequenceNumber(?string $sequenceNumber): self
+    {
+        $this->sequenceNumber = $sequenceNumber;
+
+        return $this;
+    }
+
+    
 
 
 }

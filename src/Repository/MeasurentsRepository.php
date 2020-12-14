@@ -9,8 +9,9 @@ use Doctrine\ORM\Query\ResultSetMapping;
 
 
 /**
+ * Connecting to DB for fetching the data
  * @author Prakhar Tiwari
- * @method array[] getSensorStatusBydescOrder(int $uuid)
+ *
  * 
  */
 class MeasurentsRepository extends ServiceEntityRepository
@@ -22,7 +23,8 @@ class MeasurentsRepository extends ServiceEntityRepository
 
     /**
      * Get all the values of sensors by uuid
-     * @param uuid int
+     * @method getSensorStatusBydescOrde
+     * @param $uuid int
      * 
      */
 
@@ -37,6 +39,7 @@ class MeasurentsRepository extends ServiceEntityRepository
                     ->addSelect('m.sensorStatus AS sensorStatus')
                     ->addSelect('m.sensorCurrentStatus AS sensorCurrentStatus')
                     ->addSelect('m.dateTime AS time')
+                    ->addSelect('m.sequenceNumber AS sequenceNumber')
                     ->where('m.uuid = :uuid')
                     ->setParameter('uuid', $uuid)
                     ->orderBy('m.id', 'DESC')
@@ -48,6 +51,7 @@ class MeasurentsRepository extends ServiceEntityRepository
 
     /**
      * Get sensor Current State(Status)by uuid
+     * @method getSensorCurrentStatusByUuid
      * @param $uuid int
      */
 
@@ -73,6 +77,7 @@ class MeasurentsRepository extends ServiceEntityRepository
 
     /**
      * Get last 30 days sensor data
+     * @method getSensorLast30DaysDataByUuid()
      * @param $uuid int
      */
 

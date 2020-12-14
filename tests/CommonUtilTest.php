@@ -41,12 +41,12 @@ class CommonUtilTest extends TestCase
     {
         $common = new Common();
           
-            $dbValue[] = ['sensorStatus' => 'WARN' , 'sensorCurrentStatus' => 'OK' ];
-            $dbValue[] = ['sensorStatus' => 'WARN' , 'sensorCurrentStatus' => 'OK' ];
+            $dbValue[] = ['sensorStatus' => 'WARN' , 'sensorCurrentStatus' => 'OK' , 'sequenceNumber' => '0'];
+            $dbValue[] = ['sensorStatus' => 'WARN' , 'sensorCurrentStatus' => 'OK' , 'sequenceNumber' => '0'];
 
             $this->assertJsonStringEqualsJsonString ( 
-                json_encode(['sensorStatus' => "WARN" , "currentStatus" => "ALERT" ]), 
-                json_encode($common->checkStatusFromDb(50000 ,  $dbValue ))
+                json_encode(['sensorStatus' => "WARN" , "currentStatus" => "ALERT" , 'sequenceId' => 1 ]), 
+                json_encode($common->checkStatusFromDb(50000 ,  $dbValue , 1 ))
             );
 
 
@@ -65,12 +65,12 @@ class CommonUtilTest extends TestCase
         $common = new Common();
           
                 
-                $dbValue[] = ['sensorStatus' => 'OK' , 'sensorCurrentStatus' => 'ALERT' ];
-                $dbValue[] = ['sensorStatus' => 'OK' , 'sensorCurrentStatus' => 'ALERT' ];
+                $dbValue[] = ['sensorStatus' => 'OK' , 'sensorCurrentStatus' => 'ALERT' , 'sequenceNumber' => '1'];
+                $dbValue[] = ['sensorStatus' => 'OK' , 'sensorCurrentStatus' => 'ALERT' , 'sequenceNumber' => '1' ];
                 
                 $this->assertJsonStringEqualsJsonString ( 
-                    json_encode(['sensorStatus' => "OK" , "currentStatus" => "OK" ]), 
-                    json_encode($common->checkStatusFromDb(1 ,  $dbValue ))
+                    json_encode(['sensorStatus' => "OK" , "currentStatus" => "OK" , 'sequenceId' => '' ]), 
+                    json_encode($common->checkStatusFromDb(1 ,  $dbValue , 2323))
                 );
 
 
@@ -88,12 +88,12 @@ class CommonUtilTest extends TestCase
                 $common = new Common();
           
             
-                $dbValue[] = ['sensorStatus' => 'OK' , 'sensorCurrentStatus' => 'OK' ];
-                $dbValue[] = ['sensorStatus' => 'OK' , 'sensorCurrentStatus' => 'OK' ];
+                $dbValue[] = ['sensorStatus' => 'OK' , 'sensorCurrentStatus' => 'OK' , 'sequenceNumber' => '' ];
+                $dbValue[] = ['sensorStatus' => 'OK' , 'sensorCurrentStatus' => 'OK' , 'sequenceNumber' => ''];
 
                 $this->assertJsonStringEqualsJsonString ( 
-                    json_encode(['sensorStatus' => "WARN" , "currentStatus" => "OK" ]), 
-                    json_encode($common->checkStatusFromDb(123232 ,  $dbValue ))
+                    json_encode(['sensorStatus' => "WARN" , "currentStatus" => "OK" , 'sequenceId' => '' ]), 
+                    json_encode($common->checkStatusFromDb(123232 ,  $dbValue , 22 ))
                 );
 
 
@@ -108,26 +108,22 @@ class CommonUtilTest extends TestCase
      * */
     public function testCanCheckScenario4StatusFromDb(): void 
     {
-        $common = new Common();
-
-        
-        
-            $dbValue[] = ['sensorStatus' => 'WARN' , 'sensorCurrentStatus' => 'OK' ];
-            $dbValue[] = ['sensorStatus' => 'OK' , 'sensorCurrentStatus' => 'OK' ];
-
+            $common = new Common();
+            $dbValue[] = ['sensorStatus' => 'OK' , 'sensorCurrentStatus' => 'OK' , 'sequenceNumber' => '' ];
+            $dbValue[] = ['sensorStatus' => 'OK' , 'sensorCurrentStatus' => 'OK' , 'sequenceNumber' => '' ];
+            $dbValue[] = ['sensorStatus' => 'WARN' , 'sensorCurrentStatus' => 'OK' , 'sequenceNumber' => '' ];
+            $dbValue[] = ['sensorStatus' => 'OK' , 'sensorCurrentStatus' => 'OK' , 'sequenceNumber' => ''];
             $this->assertJsonStringEqualsJsonString ( 
-                json_encode(['sensorStatus' => "WARN" , "currentStatus" => "OK" ]), 
-                json_encode($common->checkStatusFromDb(25000 ,  $dbValue ))
+                json_encode(['sensorStatus' => "WARN" , "currentStatus" => "OK" , 'sequenceId' => '' ]), 
+                json_encode($common->checkStatusFromDb(25000 ,  $dbValue , 2323 ))
             );
-        
-   
-
     }
 
 
     /**
      * Scenario 5 ::
      * Fresh Entry in
+     * 
      * */
 
     public function testCanCheckScenario5StatusFromDb(): void 
@@ -135,14 +131,14 @@ class CommonUtilTest extends TestCase
         $common = new Common();
 
         
-            $dbValue[] = ['sensorStatus' => 'WARN' , 'sensorCurrentStatus' => 'ALERT' ];
-            $dbValue[] = ['sensorStatus' => 'WARN' , 'sensorCurrentStatus' => 'ALERT' ];
-            $dbValue[] = ['sensorStatus' => 'OK' , 'sensorCurrentStatus' => 'ALERT' ];
+            $dbValue[] = ['sensorStatus' => 'WARN' , 'sensorCurrentStatus' => 'ALERT' , 'sequenceNumber' => '1'];
+            $dbValue[] = ['sensorStatus' => 'WARN' , 'sensorCurrentStatus' => 'ALERT', 'sequenceNumber' => '1' ];
+            $dbValue[] = ['sensorStatus' => 'OK' , 'sensorCurrentStatus' => 'ALERT' , 'sequenceNumber' => '1'];
             //$dbValue[] = ['sensorStatus' => 'OK' , 'sensorCurrentStatus' => 'OK' ];
             
             $this->assertJsonStringEqualsJsonString ( 
-                json_encode(['sensorStatus' => "OK" , "currentStatus" => "ALERT" ]), 
-                json_encode($common->checkStatusFromDb(1 ,  $dbValue ))
+                json_encode(['sensorStatus' => "OK" , "currentStatus" => "ALERT" ,'sequenceId' => '1'  ]), 
+                json_encode($common->checkStatusFromDb(1 ,  $dbValue , 12))
             );
         
    
@@ -151,7 +147,7 @@ class CommonUtilTest extends TestCase
 
     /**
      * Scenario 6 ::
-     * Fresh Entry in
+     * Fresh Entry for any sensor
      * */
 
     public function testCanCheckScenario6StatusFromDb(): void 
@@ -163,13 +159,33 @@ class CommonUtilTest extends TestCase
             $dbValue[] = [];
             
             $this->assertJsonStringEqualsJsonString ( 
-                json_encode(['sensorStatus' => "WARN" , "currentStatus" => "WARN" ]), 
-                json_encode($common->checkStatusFromDb(25000 ,  $dbValue ))
+                json_encode(['sensorStatus' => "WARN" , "currentStatus" => "WARN" , 'sequenceId' => '' ]), 
+                json_encode($common->checkStatusFromDb(25000 ,  $dbValue , 1))
             );
         
    
 
     }
+
+
+     /**
+     * Scenario 7 ::
+     * ALL IN ALERT ALREDY
+     * 
+     * */
+    public function testCanCheckScenario7StatusFromDb(): void 
+    {
+            $common = new Common();
+            $dbValue[] = ['sensorStatus' => 'WARN' , 'sensorCurrentStatus' => 'ALERT' , 'sequenceNumber' => '1' ];
+            $dbValue[] = ['sensorStatus' => 'WARN' , 'sensorCurrentStatus' => 'ALERT' , 'sequenceNumber' => '1' ];
+            $dbValue[] = ['sensorStatus' => 'WARN' , 'sensorCurrentStatus' => 'ALERT' , 'sequenceNumber' => '1' ];
+            $dbValue[] = ['sensorStatus' => 'WARN' , 'sensorCurrentStatus' => 'ALERT' , 'sequenceNumber' => '1'];
+            $this->assertJsonStringEqualsJsonString ( 
+                json_encode(['sensorStatus' => "WARN" , "currentStatus" => "ALERT" , 'sequenceId' => '1' ]), 
+                json_encode($common->checkStatusFromDb(25000 ,  $dbValue , 2323 ))
+            );
+    }
+
 
 
 }

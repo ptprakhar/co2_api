@@ -28,6 +28,7 @@ class Common
      * (this can be increased in future if requirement changes)
      * @method calcuateStatus
      * @param $co2Value int
+     * @return string
      * */
     private $consecutiveLimit = 3;
 
@@ -49,12 +50,15 @@ class Common
      * @method checkStatusFromDb()
      * @param $co2Value int
      * @param $statusFromDB array 
-     * 
+     * @param $uniqueId hax
+     * @return array[]
      */
 
 
-    public function checkStatusFromDb($co2Value, $statusFromDB){
-    
+    public function checkStatusFromDb($co2Value, $statusFromDB , $uniqueId){
+        
+        $sequenceId = "";
+
         //Check there is any data in DB or not
         if(!empty($statusFromDB) && count($statusFromDB) > ($this->consecutiveLimit-2) ){
 
@@ -73,12 +77,14 @@ class Common
                                     $currentStatus = $this->okStatus;
                                 }else{
                                     $currentStatus = $this->alertStatus;
+                                    $sequenceId = $statusFromDB[0]['sequenceNumber'];
                                     break;
                                 }
                                
                             }
                         }else{
                             $currentStatus = $this->alertStatus;
+                            $sequenceId = $statusFromDB[0]['sequenceNumber'];
                         }
             }
             else{
@@ -88,6 +94,8 @@ class Common
                     for($i=0; $i < $this->consecutiveLimit-1; $i++){
                         if (  ($statusFromDB[$i]['sensorStatus'] == $this->warningStatus) ){
                             $currentStatus = $this->alertStatus;
+                            //Set New Seq no.
+                            $sequenceId = $uniqueId;
                         }else{
                             $currentStatus = $this->okStatus;
                             break;
@@ -107,7 +115,21 @@ class Common
             $sensorStatus = $this->calcuateStatus($co2Value);
             $currentStatus = ( isset($statusFromDB[0]['sensorStatus']) && $statusFromDB[0]['sensorStatus']!='')?  $statusFromDB[0]['sensorCurrentStatus'] : $sensorStatus;
         }
-        return ['sensorStatus' => $this->calcuateStatus($co2Value) , 'currentStatus' => $currentStatus ];
+        return ['sensorStatus' => $this->calcuateStatus($co2Value) , 'currentStatus' => $currentStatus , 'sequenceId' => $sequenceId ];
+
+    }
+
+
+    /**
+     * Validate the form Data
+     * 
+     * @method validateData
+     * @param $dataArray
+     * @return array[]
+     * 
+     */
+    public function validateData($dataArray){
+        
 
     }
 }

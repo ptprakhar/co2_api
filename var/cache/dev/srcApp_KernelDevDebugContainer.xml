@@ -2006,7 +2006,7 @@
       <argument type="collection">
         <argument key="info" type="collection">
           <argument key="title">API Documentation</argument>
-          <argument key="description">Sensor matrics APIs</argument>
+          <argument key="description">Sensor matrics</argument>
           <argument key="version">1.0.0</argument>
         </argument>
       </argument>

@@ -1,6 +1,6 @@
 <?php
 
-namespace ContainerPtt0G6c;
+namespace ContainerFNy1bLJ;
 
 use Symfony\Component\DependencyInjection\Argument\RewindableGenerator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -3386,7 +3386,7 @@ class srcApp_KernelDevDebugContainer extends Container
         include_once \dirname(__DIR__, 4).'/vendor/nelmio/api-doc-bundle/Describer/DescriberInterface.php';
         include_once \dirname(__DIR__, 4).'/vendor/nelmio/api-doc-bundle/Describer/ExternalDocDescriber.php';
 
-        return $this->privates['nelmio_api_doc.describers.config'] = new \Nelmio\ApiDocBundle\Describer\ExternalDocDescriber(['info' => ['title' => 'API Documentation', 'description' => 'Sensor matrics APIs', 'version' => '1.0.0']]);
+        return $this->privates['nelmio_api_doc.describers.config'] = new \Nelmio\ApiDocBundle\Describer\ExternalDocDescriber(['info' => ['title' => 'API Documentation', 'description' => 'Sensor matrics', 'version' => '1.0.0']]);
     }
 
     /**
