@@ -1,0 +1,107 @@
+<?php //%255BApp%255CController%255CApiController%2523sensor_metrics%255D%255B1%255D
+
+return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\Internal\Hydrator::hydrate(
+    $o = [
+        clone (($p = &\Symfony\Component\VarExporter\Internal\Registry::$prototypes)['Symfony\\Component\\Routing\\Annotation\\Route'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Symfony\\Component\\Routing\\Annotation\\Route')),
+        clone ($p['OpenApi\\Annotations\\Response'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('OpenApi\\Annotations\\Response')),
+        clone ($p['OpenApi\\Context'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('OpenApi\\Context')),
+        clone ($p['OpenApi\\Annotations\\Parameter'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('OpenApi\\Annotations\\Parameter')),
+        clone ($p['OpenApi\\Annotations\\Schema'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('OpenApi\\Annotations\\Schema')),
+        clone $p['OpenApi\\Context'],
+        clone $p['OpenApi\\Context'],
+        clone ($p['OpenApi\\Annotations\\Tag'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('OpenApi\\Annotations\\Tag')),
+        clone $p['OpenApi\\Context'],
+    ],
+    null,
+    [
+        'Symfony\\Component\\Routing\\Annotation\\Route' => [
+            'path' => [
+                '/api/v1/sensors/{uuid}/metrics',
+            ],
+            'methods' => [
+                [
+                    'GET',
+                ],
+            ],
+        ],
+        'stdClass' => [
+            'response' => [
+                1 => 200,
+            ],
+            'description' => [
+                1 => 'Returns Average CO2 level of last 30 days and Maximum CO2 Level in the last 30 days',
+                3 => 'find matrics of sensor by uuid',
+            ],
+            '_context' => [
+                1 => $o[2],
+                3 => $o[6],
+                $o[5],
+                7 => $o[8],
+            ],
+            'filename' => [
+                2 => '/var/www/html/symfony-sensors-data/co2-apiv1/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php',
+                5 => '/var/www/html/symfony-sensors-data/co2-apiv1/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php',
+                '/var/www/html/symfony-sensors-data/co2-apiv1/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php',
+                8 => '/var/www/html/symfony-sensors-data/co2-apiv1/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php',
+            ],
+            'line' => [
+                2 => 948,
+                5 => 948,
+                948,
+                8 => 948,
+            ],
+            'method' => [
+                2 => 'Annotation',
+                5 => 'Annotation',
+                'Annotation',
+                8 => 'Annotation',
+            ],
+            'class' => [
+                2 => 'DocParser',
+                5 => 'DocParser',
+                'DocParser',
+                8 => 'DocParser',
+            ],
+            'namespace' => [
+                2 => 'Doctrine\\Common\\Annotations',
+                5 => 'Doctrine\\Common\\Annotations',
+                'Doctrine\\Common\\Annotations',
+                8 => 'Doctrine\\Common\\Annotations',
+            ],
+            'annotations' => [
+                2 => [
+                    $o[1],
+                ],
+                5 => [
+                    $o[4],
+                ],
+                [
+                    $o[3],
+                ],
+                8 => [
+                    $o[7],
+                ],
+            ],
+            'name' => [
+                3 => 'uuid',
+                7 => 'GET',
+            ],
+            'in' => [
+                3 => 'query',
+            ],
+            'schema' => [
+                3 => $o[4],
+            ],
+            'type' => [
+                4 => 'string',
+            ],
+        ],
+    ],
+    [
+        $o[0],
+        $o[1],
+        $o[3],
+        $o[7],
+    ],
+    []
+); }];
